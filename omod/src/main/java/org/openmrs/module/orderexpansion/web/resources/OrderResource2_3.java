@@ -9,9 +9,12 @@ import org.openmrs.api.OrderContext;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder;
 import org.openmrs.module.orderexpansion.api.model.ProcedureOrder;
+import org.openmrs.module.orderexpansion.api.model.RadiologyOrder;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_2.OrderResource2_2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Resource(name = RestConstants.VERSION_1 + "/order", supportedClass = Order.class, order = 10, supportedOpenmrsVersions = {
         "2.6.* - 9.*" })
@@ -21,19 +24,21 @@ public class OrderResource2_3 extends OrderResource2_2 {
 	
 	private String MEDICAL_SUPPLY_ORDER_TYPE_UUID = "dab3ab30-2feb-48ec-b4af-8332a0831b49";
 	
+	private final String RADIOLOGY_ORDER_TYPE_UUID = "c19c8e82-8b8d-4b4e-b1ff-3f09890b2db3";
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderResource2_3.class);
+	
 	@Override
 	public Order save(Order delegate) {
 		return Context.getOrderService().saveOrder(delegate, setOrderContext(delegate));
 	}
 	
 	private OrderContext setOrderContext(Order order) {
+		LOGGER.error("Inside setOrderContext");
 		OrderContext orderContext = new OrderContext();
 		
-		OrderType orderType = null;
+		OrderType orderType = Context.getOrderService().getOrderTypeByConcept(order.getConcept());
 		
-		if (orderType == null) {
-			orderType = Context.getOrderService().getOrderTypeByConcept(order.getConcept());
-		}
 		if (orderType == null && order instanceof DrugOrder) {
 			orderType = Context.getOrderService().getOrderTypeByUuid(OrderType.DRUG_ORDER_TYPE_UUID);
 			
@@ -45,7 +50,11 @@ public class OrderResource2_3 extends OrderResource2_2 {
 			orderType = Context.getOrderService().getOrderTypeByUuid(PROCEDURE_ORDER_TYPE_UUID);
 		} else if (orderType == null && order instanceof MedicalSupplyOrder) {
 			orderType = Context.getOrderService().getOrderTypeByUuid(MEDICAL_SUPPLY_ORDER_TYPE_UUID);
+		} else if (orderType == null && order instanceof RadiologyOrder) {
+			orderType = Context.getOrderService().getOrderTypeByUuid(RADIOLOGY_ORDER_TYPE_UUID);
 		}
+		
+		LOGGER.error("orderType:: {}", orderType);
 		
 		orderContext.setCareSetting(null);
 		orderContext.setOrderType(orderType);
