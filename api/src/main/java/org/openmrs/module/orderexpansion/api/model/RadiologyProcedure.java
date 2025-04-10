@@ -63,11 +63,11 @@ public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 	
 	private Location location;
 	
-	public Integer getProcedureId() {
+	public Integer getRadiologyId() {
 		return radiologyId;
 	}
 	
-	public void setProcedureId(Integer radiologyId) {
+	public void setRadiologyId(Integer radiologyId) {
 		this.radiologyId = radiologyId;
 	}
 	
@@ -83,7 +83,7 @@ public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 		return radiologyOrder;
 	}
 	
-	public void setProcedureOrder(RadiologyOrder radiologyOrder) {
+	public void setRadiologyOrder(RadiologyOrder radiologyOrder) {
 		this.radiologyOrder = radiologyOrder;
 	}
 	
@@ -93,6 +93,14 @@ public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 	
 	public void setConcept(Concept concept) {
 		this.concept = concept;
+	}
+	
+	public Concept getRadiologyProcedureReason() {
+		return radiologyProcedureReason;
+	}
+	
+	public void setRadiologyProcedureReason(Concept radiologyProcedureReason) {
+		this.radiologyProcedureReason = radiologyProcedureReason;
 	}
 	
 	public Concept getCategory() {
@@ -143,36 +151,20 @@ public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 		this.status = status;
 	}
 	
-	public RadiologyProcedureOutcome getOutcome() {
-		return outcome;
-	}
-	
-	public void setOutcome(RadiologyProcedureOutcome outcome) {
-		this.outcome = outcome;
-	}
-	
-	public Location getLocation() {
-		return location;
-	}
-	
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-	
-	public Concept getRadiologyProcedureReason() {
-		return radiologyProcedureReason;
-	}
-	
-	public void setRadiologyProcedureReason(Concept radiologyProcedureReason) {
-		this.radiologyProcedureReason = radiologyProcedureReason;
-	}
-	
 	public Concept getStatusReason() {
 		return statusReason;
 	}
 	
 	public void setStatusReason(Concept statusReason) {
 		this.statusReason = statusReason;
+	}
+	
+	public RadiologyProcedureOutcome getOutcome() {
+		return outcome;
+	}
+	
+	public void setOutcome(RadiologyProcedureOutcome outcome) {
+		this.outcome = outcome;
 	}
 	
 	public String getRadiologyReport() {
@@ -199,13 +191,21 @@ public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 		this.encounters = encounters;
 	}
 	
-	@Override
-	public Integer getId() {
-		return getProcedureId();
+	public Location getLocation() {
+		return location;
+	}
+	
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 	@Override
-	public void setId(Integer integer) {
-		setProcedureId(integer);
+	public Integer getId() {
+		return getRadiologyId();
+	}
+	
+	@Override
+	public void setId(Integer id) {
+		setRadiologyId(id);
 	}
 }

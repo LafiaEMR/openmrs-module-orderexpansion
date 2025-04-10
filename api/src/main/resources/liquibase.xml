@@ -346,7 +346,7 @@
         </createTable>
         <addForeignKeyConstraint constraintName="encounter_procedures_procedure_id_fk"
                                  baseTableName="encounter_radiology_procedures" baseColumnNames="radiology_id"
-                                 referencedTableName="procedures" referencedColumnNames="radiology_id"/>
+                                 referencedTableName="radiology_procedures" referencedColumnNames="radiology_id"/>
         <addForeignKeyConstraint constraintName="encounter_procedures_encounter_id_fk"
                                  baseTableName="encounter_radiology_procedures" baseColumnNames="encounter_id"
                                  referencedTableName="encounter" referencedColumnNames="encounter_id"/>
@@ -355,7 +355,6 @@
     <changeSet id="radiology-202504091430" author="dipakthapa">
         <comment>Insert Radiology Order Type</comment>
         <insert tableName="order_type">
-            <column name="order_type_id" valueNumeric="11"/>
             <column name="name" value="Radiology Order"/>
             <column name="java_class_name" value="org.openmrs.module.orderexpansion.api.model.RadiologyOrder"/>
             <column name="description" value="Order type for radiology-related diagnostics"/>
@@ -371,7 +370,6 @@
     <changeSet id="radiology-202504091445" author="dipakthapa">
         <comment>Insert Radiology Order Type</comment>
         <insert tableName="order_type">
-            <column name="order_type_id" valueNumeric="11"/>
             <column name="name" value="Procedure Order"/>
             <column name="java_class_name" value="org.openmrs.module.orderexpansion.api.model.ProcedureOrder"/>
             <column name="description" value="Order type for procedures"/>
