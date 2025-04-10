@@ -1,14 +1,14 @@
 package org.openmrs.module.orderexpansion.api.dao.impl;
 
+import static org.hibernate.criterion.Restrictions.eq;
+
+import java.util.Optional;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.openmrs.module.orderexpansion.api.dao.RadiologyProcedureDao;
 import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
-
-import java.util.Optional;
-
-import static org.hibernate.criterion.Restrictions.eq;
 
 public class RadiologyProcedureDaoImpl implements RadiologyProcedureDao {
 	

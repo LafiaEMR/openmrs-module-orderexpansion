@@ -1,10 +1,11 @@
 package org.openmrs.module.orderexpansion.api.model;
 
-import org.openmrs.*;
-
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
+
+import org.openmrs.*;
 
 @Entity
 @Table(name = "radiology_procedures")

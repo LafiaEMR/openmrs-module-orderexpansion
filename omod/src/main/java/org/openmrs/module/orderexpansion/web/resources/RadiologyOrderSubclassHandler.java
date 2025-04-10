@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 @SubClassHandler(supportedClass = RadiologyOrder.class, supportedOpenmrsVersions = { "2.6.* - 9.*" })
 public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler<Order, RadiologyOrder> implements DelegatingSubclassHandler<Order, RadiologyOrder> {
-
+	
 	private static final Logger LOGGER = LoggerFactory.getLogger(RadiologyOrderSubclassHandler.class);
 	
 	@Override
@@ -128,8 +128,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 		        .getResourceBySupportedClass(Order.class);
 		ModelImpl orderModel = (ModelImpl) orderResource.getGETModel(rep);
 		orderModel.property("laterality", new EnumProperty(RadiologyOrder.Laterality.class))
-		        .property("clinicalHistory", new StringProperty())
-				.property("numberOfRepeats", new IntegerProperty());
+		        .property("clinicalHistory", new StringProperty()).property("numberOfRepeats", new IntegerProperty());
 		
 		if (rep instanceof DefaultRepresentation) {
 			orderModel.property("specimenSource", new RefProperty("#/definitions/ConceptGetRef")).property("frequency",
@@ -148,7 +147,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 		        .getResourceBySupportedClass(Order.class);
 		ModelImpl orderModel = (ModelImpl) orderResource.getCREATEModel(rep);
 		return orderModel.property("specimenSource", new StringProperty().example("uuid"))
-				.property("modality", new StringProperty().example("uuid"))
+		        .property("modality", new StringProperty().example("uuid"))
 		        .property("laterality", new EnumProperty(RadiologyOrder.Laterality.class))
 		        .property("clinicalHistory", new StringProperty())
 		        .property("frequency", new StringProperty().example("uuid"))

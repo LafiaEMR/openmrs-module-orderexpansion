@@ -1,10 +1,12 @@
 package org.openmrs.module.orderexpansion.web.resources;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.openmrs.Encounter;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.orderexpansion.api.ProcedureService;
 import org.openmrs.module.orderexpansion.api.RadiologyProcedureService;
-import org.openmrs.module.orderexpansion.api.model.Procedure;
 import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.RestConstants;
@@ -18,16 +20,12 @@ import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-@Resource(name = RestConstants.VERSION_1 + "/radiology", supportedClass = RadiologyProcedure.class, supportedOpenmrsVersions = {
-        "2.6.* - 9.*" })
+@Resource(name = RestConstants.VERSION_1
+        + "/radiology", supportedClass = RadiologyProcedure.class, supportedOpenmrsVersions = { "2.6.* - 9.*" })
 public class RadiologyProcedureResource extends DataDelegatingCrudResource<RadiologyProcedure> {
-
+	
 	private RadiologyProcedureService radiologyProcedureService;
-
+	
 	public RadiologyProcedureResource() {
 		this.radiologyProcedureService = Context.getService(RadiologyProcedureService.class);
 	}
@@ -43,7 +41,8 @@ public class RadiologyProcedureResource extends DataDelegatingCrudResource<Radio
 	}
 	
 	@Override
-	protected void delete(RadiologyProcedure radiologyProcedure, String s, RequestContext requestContext) throws ResponseException {
+	protected void delete(RadiologyProcedure radiologyProcedure, String s, RequestContext requestContext)
+	        throws ResponseException {
 		
 	}
 	

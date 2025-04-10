@@ -1,9 +1,9 @@
 package org.openmrs.module.orderexpansion.api.model;
 
+import java.util.Set;
+
 import org.openmrs.Concept;
 import org.openmrs.ServiceOrder;
-
-import java.util.Set;
 
 public class RadiologyOrder extends ServiceOrder {
 	
@@ -12,9 +12,9 @@ public class RadiologyOrder extends ServiceOrder {
 	private Concept specimenType;
 	
 	private Concept bodySite;
-
+	
 	private RadiologyOrder relatedOrder;
-
+	
 	private Set<RadiologyProcedure> radiologyOrders;
 	
 	public RadiologyOrder() {
@@ -68,19 +68,19 @@ public class RadiologyOrder extends ServiceOrder {
 	public void setBodySite(Concept bodySite) {
 		this.bodySite = bodySite;
 	}
-
+	
 	public RadiologyOrder getRelatedOrder() {
 		return relatedOrder;
 	}
-
+	
 	public void setRelatedOrder(RadiologyOrder relatedOrder) {
 		this.relatedOrder = relatedOrder;
 	}
-
+	
 	public Set<RadiologyProcedure> getRadiologyOrders() {
 		return radiologyOrders;
 	}
-
+	
 	public void setRadiologyOrders(Set<RadiologyProcedure> radiologyOrders) {
 		this.radiologyOrders = radiologyOrders;
 	}

@@ -1,9 +1,10 @@
 package org.openmrs.module.orderexpansion.api.dao;
 
-import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
-
 import javax.validation.constraints.NotNull;
+
 import java.util.Optional;
+
+import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
 
 public interface RadiologyProcedureDao {
 	

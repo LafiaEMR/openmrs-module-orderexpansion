@@ -1,5 +1,9 @@
 package org.openmrs.module.orderexpansion.api.impl;
 
+import javax.transaction.Transactional;
+
+import java.util.*;
+
 import org.openmrs.Encounter;
 import org.openmrs.EncounterProvider;
 import org.openmrs.Obs;
@@ -8,9 +12,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.orderexpansion.api.RadiologyProcedureService;
 import org.openmrs.module.orderexpansion.api.dao.RadiologyProcedureDao;
 import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
-
-import javax.transaction.Transactional;
-import java.util.*;
 
 @Transactional
 public class RadiologyProcedureServiceImpl implements RadiologyProcedureService {
