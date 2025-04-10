@@ -4,13 +4,11 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <joined-subclass name="org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder" extends="org.openmrs.Order" table="medical_supplies_order" lazy="false">
-
+    <joined-subclass name="org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder" extends="org.openmrs.Order" table="medical_supply_order" lazy="false">
         <key column="order_id" not-null="true" on-delete="cascade" />
-         <many-to-one name="quantityUnits" class="org.openmrs.Concept" column="quantity_units" />
-        <property name="medicalSuppliesInventoryId" type="int" column="medical_supplies_inventory_id" length="11" />
-        <property name="quantity" type="double" column="quantity" length="11" />
-        <property name="brandName" type="java.lang.String" column="brand_name" length="255" />
-
+        <property name="quantity" column="quantity" type="java.lang.Double"/>
+        <property name="brandName" column="brand_name" type="java.lang.String"/>
+        <many-to-one name="quantityUnits" class="org.openmrs.Concept" column="quantity_units"/>
+        <property name="medicalSuppliesInventoryId" column="medical_supplies_inventory_id" type="java.lang.Integer"/>
     </joined-subclass>
 </hibernate-mapping>

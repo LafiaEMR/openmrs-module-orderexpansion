@@ -5,7 +5,7 @@ import org.openmrs.ServiceOrder;
 
 public class MedicalSupplyOrder extends ServiceOrder {
 	
-	public static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 	
 	private Double quantity;
 	

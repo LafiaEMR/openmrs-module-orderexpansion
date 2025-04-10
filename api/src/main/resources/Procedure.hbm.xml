@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.openmrs.module.orderexpansion.api.model.Procedure" table="procedures">
+        <id name="procedureId" column="procedure_id" type="java.lang.Integer">
+            <generator class="native"/>
+        </id>
+
+        <many-to-one name="patient" class="org.openmrs.Patient" column="patient_id"/>
+        <many-to-one name="procedureOrder" class="org.openmrs.module.orderexpansion.api.model.ProcedureOrder" column="procedure_order_id"/>
+        <many-to-one name="concept" class="org.openmrs.Concept" column="concept"/>
+        <many-to-one name="procedureReason" class="org.openmrs.Concept" column="procedure_reason"/>
+        <many-to-one name="category" class="org.openmrs.Concept" column="category"/>
+        <many-to-one name="bodySite" class="org.openmrs.Concept" column="body_site"/>
+        <many-to-one name="partOf" class="org.openmrs.module.orderexpansion.api.model.Procedure" column="part_of"/>
+        
+        <property name="startDatetime" column="start_datetime" type="java.util.Date"/>
+        <property name="endDatetime" column="end_datetime" type="java.util.Date"/>
+        
+        <property name="status" column="status">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.orderexpansion.api.model.Procedure$ProcedureStatus</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        
+        <many-to-one name="statusReason" class="org.openmrs.Concept" column="status_reason"/>
+        
+        <property name="outcome" column="outcome">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.openmrs.module.orderexpansion.api.model.Procedure$ProcedureOutcome</param>
+                <param name="useNamed">true</param>
+            </type>
+        </property>
+        
+        <property name="procedureReport" column="report" type="java.lang.String"/>
+        <many-to-one name="modality" class="org.openmrs.Concept" column="modality"/>
+        <many-to-one name="location" class="org.openmrs.Location" column="location_id"/>
+        
+        <set name="encounters" table="encounter_procedures">
+            <key column="procedure_id"/>
+            <many-to-many class="org.openmrs.Encounter" column="encounter_id"/>
+        </set>
+    </class>
+</hibernate-mapping> 

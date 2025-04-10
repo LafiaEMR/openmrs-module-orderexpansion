@@ -16,22 +16,22 @@ import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
 @Transactional
 public class RadiologyProcedureServiceImpl implements RadiologyProcedureService {
 	
-	private RadiologyProcedureDao procedureDao;
+	private RadiologyProcedureDao radiologyProcedureDao;
 	
-	public void setProcedureDao(RadiologyProcedureDao procedureDao) {
-		this.procedureDao = procedureDao;
+	public void setRadiologyProcedureDao(RadiologyProcedureDao radiologyProcedureDao) {
+		this.radiologyProcedureDao = radiologyProcedureDao;
 	}
 	
 	@Override
 	public Optional<RadiologyProcedure> getRadiologyProcedureByUuid(String uuid) {
-		return procedureDao.getRadiologyProcedureByUuid(uuid);
+		return radiologyProcedureDao.getRadiologyProcedureByUuid(uuid);
 	}
 	
 	@Override
 	public RadiologyProcedure saveOrUpdate(RadiologyProcedure radiologyProcedure) {
 		List<Encounter> encounters = handleEncounter(radiologyProcedure);
 		radiologyProcedure.setEncounters(encounters);
-		return procedureDao.saveOrUpdate(radiologyProcedure);
+		return radiologyProcedureDao.saveOrUpdate(radiologyProcedure);
 	}
 	
 	/**

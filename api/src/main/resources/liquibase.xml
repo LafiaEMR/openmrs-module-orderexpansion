@@ -286,7 +286,7 @@
                 <tableExists tableName="radiology_procedures"/>
             </not>
         </preConditions>
-        <createTable tableName="procedures">
+        <createTable tableName="radiology_procedures">
             <column name="radiology_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>

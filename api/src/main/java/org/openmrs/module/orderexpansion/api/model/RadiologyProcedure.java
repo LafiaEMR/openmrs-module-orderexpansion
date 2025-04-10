@@ -1,14 +1,14 @@
 package org.openmrs.module.orderexpansion.api.model;
 
-import javax.persistence.*;
-
 import java.util.Date;
 import java.util.List;
 
-import org.openmrs.*;
+import org.openmrs.BaseFormRecordableOpenmrsData;
+import org.openmrs.Concept;
+import org.openmrs.Encounter;
+import org.openmrs.Location;
+import org.openmrs.Patient;
 
-@Entity
-@Table(name = "radiology_procedures")
 public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 	
 	public enum RadiologyProcedureStatus {
@@ -29,69 +29,38 @@ public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "radiology_id")
 	private Integer radiologyId;
 	
-	@ManyToOne
-	@JoinColumn(name = "patient_id")
 	private Patient patient;
 	
-	@ManyToOne
-	@JoinColumn(name = "radiology_order_id")
 	private RadiologyOrder radiologyOrder;
 	
-	@ManyToOne
-	@JoinColumn(name = "concept")
 	private Concept concept;
 	
-	@ManyToOne
-	@JoinColumn(name = "radiology_reason")
 	private Concept radiologyProcedureReason;
 	
-	@ManyToOne
-	@JoinColumn(name = "category")
 	private Concept category;
 	
-	@ManyToOne
-	@JoinColumn(name = "body_site")
 	private Concept bodySite;
 	
-	@ManyToOne
-	@JoinColumn(name = "part_of")
 	private RadiologyProcedure partOf;
 	
-	@Column(name = "start_datetime")
 	private Date startDatetime;
 	
-	@Column(name = "end_datetime")
 	private Date endDatetime;
 	
-	@Enumerated(EnumType.STRING)
 	private RadiologyProcedureStatus status;
 	
-	@ManyToOne
-	@JoinColumn(name = "status_reason")
 	private Concept statusReason;
 	
-	@Enumerated(EnumType.STRING)
 	private RadiologyProcedureOutcome outcome;
 	
-	@Column(name = "report")
-	@Lob
 	private String radiologyReport;
 	
-	@ManyToOne
-	@JoinColumn(name = "modality")
 	public Concept modality;
 	
-	@OneToMany
-	@JoinTable(name = "encounter_radiology_procedures", joinColumns = @JoinColumn(name = "radiology_id"), inverseJoinColumns = @JoinColumn(name = "encounter_id"))
 	private List<Encounter> encounters;
 	
-	@ManyToOne
-	@JoinColumn(name = "location_id")
 	private Location location;
 	
 	public Integer getProcedureId() {

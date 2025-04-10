@@ -1,19 +1,5 @@
 package org.openmrs.module.orderexpansion.api.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +9,6 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 
-@Entity
-@Table(name = "procedures")
 public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public enum ProcedureStatus {
@@ -45,69 +29,38 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "procedure_id")
 	private Integer procedureId;
 	
-	@ManyToOne
-	@JoinColumn(name = "patient_id")
 	private Patient patient;
 	
-	@ManyToOne
-	@JoinColumn(name = "procedure_order_id")
 	private ProcedureOrder procedureOrder;
 	
-	@ManyToOne
-	@JoinColumn(name = "concept")
 	private Concept concept;
 	
-	@ManyToOne
-	@JoinColumn(name = "procedure_reason")
 	private Concept procedureReason;
 	
-	@ManyToOne
-	@JoinColumn(name = "category")
 	private Concept category;
 	
-	@ManyToOne
-	@JoinColumn(name = "body_site")
 	private Concept bodySite;
 	
-	@ManyToOne
-	@JoinColumn(name = "part_of")
 	private Procedure partOf;
 	
-	@Column(name = "start_datetime")
 	private Date startDatetime;
 	
-	@Column(name = "end_datetime")
 	private Date endDatetime;
 	
-	@Enumerated(EnumType.STRING)
 	private ProcedureStatus status;
 	
-	@ManyToOne
-	@JoinColumn(name = "status_reason")
 	private Concept statusReason;
 	
-	@Enumerated(EnumType.STRING)
 	private ProcedureOutcome outcome;
 	
-	@Column(name = "report")
-	@Lob
 	private String procedureReport;
 	
-	@ManyToOne
-	@JoinColumn(name = "modality")
 	public Concept modality;
 	
-	@OneToMany
-	@JoinTable(name = "encounter_procedures", joinColumns = @JoinColumn(name = "procedure_id"), inverseJoinColumns = @JoinColumn(name = "encounter_id"))
 	private List<Encounter> encounters;
 	
-	@ManyToOne
-	@JoinColumn(name = "location_id")
 	private Location location;
 	
 	public Integer getProcedureId() {

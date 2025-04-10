@@ -23,8 +23,11 @@
 	<!-- Maps hibernate files, if present -->
 	<mappingFiles>
 		ProcedureOrder.hbm.xml
+		Procedure.hbm.xml
 		MedicalSupplyOrder.hbm.xml
 		RadiologyOrder.hbm.xml
+		RadiologyProcedure.hbm.xml
+		MedicalSupplyDispense.hbm.xml
 	</mappingFiles>
 
 	<messages>
