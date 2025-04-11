@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 @Resource(name = RestConstants.VERSION_1 + "/order", supportedClass = Order.class, order = 10, supportedOpenmrsVersions = {
         "2.6.* - 9.*" })
-public class OrderResource2_3 extends OrderResource2_2 {
+public class OrderResource2_6 extends OrderResource2_2 {
 	
 	private String PROCEDURE_ORDER_TYPE_UUID = "4237a01f-29c5-4167-9d8e-96d6e590aa33";
 	
@@ -26,7 +26,7 @@ public class OrderResource2_3 extends OrderResource2_2 {
 	
 	private final String RADIOLOGY_ORDER_TYPE_UUID = "c19c8e82-8b8d-4b4e-b1ff-3f09890b2db3";
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(OrderResource2_3.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(OrderResource2_6.class);
 	
 	@Override
 	public Order save(Order delegate) {
