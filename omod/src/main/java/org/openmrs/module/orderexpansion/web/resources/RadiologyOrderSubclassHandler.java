@@ -49,7 +49,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 	@Override
 	public DelegatingResourceDescription getUpdatableProperties() throws ResourceDoesNotSupportOperationException {
 		LOGGER.info("Inside getUpdatableProperties");
-		OrderResource2_3 orderResource = (OrderResource2_3) Context.getService(RestService.class)
+		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		return orderResource.getUpdatableProperties();
 	}
@@ -57,7 +57,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 	@PropertyGetter("display")
 	public static String getDisplay(RadiologyOrder delegate) {
 		LOGGER.info("Inside getDisplay");
-		OrderResource2_3 orderResource = (OrderResource2_3) Context.getService(RestService.class)
+		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		return orderResource.getDisplayString(delegate);
 	}
@@ -66,7 +66,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		LOGGER.info("Inside getRepresentationDescription");
 		if (rep instanceof DefaultRepresentation) {
-			OrderResource2_3 orderResource = (OrderResource2_3) Context.getService(RestService.class)
+			OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 			        .getResourceBySupportedClass(Order.class);
 			DelegatingResourceDescription d = orderResource.getRepresentationDescription(rep);
 			d.addProperty("specimenSource", Representation.REF);
@@ -76,11 +76,10 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 			d.addProperty("numberOfRepeats");
 			d.addProperty("specimenType", Representation.REF);
 			d.addProperty("bodySite", Representation.REF);
-			d.addProperty("radiologyStatus");
-			d.addProperty("relatedRadiologyOrder", Representation.REF);
+			d.addProperty("relatedOrder", Representation.REF);
 			return d;
 		} else if (rep instanceof FullRepresentation) {
-			OrderResource2_3 orderResource = (OrderResource2_3) Context.getService(RestService.class)
+			OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 			        .getResourceBySupportedClass(Order.class);
 			DelegatingResourceDescription d = orderResource.getRepresentationDescription(rep);
 			d.addProperty("specimenSource", Representation.FULL);
@@ -90,8 +89,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 			d.addProperty("numberOfRepeats");
 			d.addProperty("specimenType", Representation.FULL);
 			d.addProperty("bodySite", Representation.FULL);
-			d.addProperty("radiologyStatus");
-			d.addProperty("relatedRadiologyOrder", Representation.FULL);
+			d.addProperty("relatedOrder", Representation.FULL);
 			return d;
 		} else if (rep instanceof CustomRepresentation) { // custom rep
 			return null;
@@ -102,7 +100,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
 		LOGGER.info("Inside getCreatableProperties");
-		OrderResource2_3 orderResource = (OrderResource2_3) Context.getService(RestService.class)
+		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		DelegatingResourceDescription d = orderResource.getCreatableProperties();
 		d.addProperty("specimenSource");
@@ -114,7 +112,6 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 		d.addProperty("bodySite");
 		d.addProperty("modality");
 		d.addProperty("specimenType");
-		d.addProperty("radiologyStatus");
 		d.addProperty("commentToFulfiller");
 		d.addProperty("scheduledDate");
 		d.addProperty("relatedRadiology");
@@ -124,7 +121,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 	@Override
 	public Model getGETModel(Representation rep) {
 		LOGGER.info("Inside getGETModel");
-		OrderResource2_3 orderResource = (OrderResource2_3) Context.getService(RestService.class)
+		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		ModelImpl orderModel = (ModelImpl) orderResource.getGETModel(rep);
 		orderModel.property("laterality", new EnumProperty(RadiologyOrder.Laterality.class))
@@ -143,7 +140,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		LOGGER.info("Inside getCREATEModel");
-		OrderResource2_3 orderResource = (OrderResource2_3) Context.getService(RestService.class)
+		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		ModelImpl orderModel = (ModelImpl) orderResource.getCREATEModel(rep);
 		return orderModel.property("specimenSource", new StringProperty().example("uuid"))

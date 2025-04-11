@@ -16,7 +16,7 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.openmrs2_2.OrderRes
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Resource(name = RestConstants.VERSION_1 + "/order", supportedClass = Order.class, order = 10, supportedOpenmrsVersions = {
+@Resource(name = RestConstants.VERSION_1 + "/order", supportedClass = Order.class, order = 3, supportedOpenmrsVersions = {
         "2.6.* - 9.*" })
 public class OrderResource2_6 extends OrderResource2_2 {
 	
@@ -34,7 +34,7 @@ public class OrderResource2_6 extends OrderResource2_2 {
 	}
 	
 	private OrderContext setOrderContext(Order order) {
-		LOGGER.error("Inside setOrderContext");
+		LOGGER.info("Inside setOrderContext");
 		OrderContext orderContext = new OrderContext();
 		
 		OrderType orderType = Context.getOrderService().getOrderTypeByConcept(order.getConcept());
@@ -54,7 +54,7 @@ public class OrderResource2_6 extends OrderResource2_2 {
 			orderType = Context.getOrderService().getOrderTypeByUuid(RADIOLOGY_ORDER_TYPE_UUID);
 		}
 		
-		LOGGER.error("orderType:: {}", orderType);
+		LOGGER.info("orderType:: {}", orderType);
 		
 		orderContext.setCareSetting(null);
 		orderContext.setOrderType(orderType);

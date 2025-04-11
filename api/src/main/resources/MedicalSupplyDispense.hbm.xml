@@ -11,7 +11,7 @@
 
         <many-to-one name="patient" class="org.openmrs.Patient" column="patient_id"/>
         <many-to-one name="encounter" class="org.openmrs.Encounter" column="encounter_id"/>
-        <many-to-one name="medicalSupplyOrder" class="org.openmrs.Order" column="medical_supply_order_id"/>
+        <many-to-one name="medicalSupplyOrder" class="org.openmrs.module.orderexpansion.api.model.MedicalSupplyOrder" column="medical_supply_order_id"/>
         <many-to-one name="concept" class="org.openmrs.Concept" column="concept"/>
         <property name="dateDispensed" column="date_dispensed" type="java.util.Date"/>
         <many-to-one name="dispenser" class="org.openmrs.User" column="dispenser"/>
