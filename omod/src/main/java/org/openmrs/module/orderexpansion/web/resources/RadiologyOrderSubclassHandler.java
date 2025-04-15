@@ -1,5 +1,8 @@
 package org.openmrs.module.orderexpansion.web.resources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.swagger.models.Model;
 import io.swagger.models.ModelImpl;
 import io.swagger.models.properties.IntegerProperty;
@@ -8,6 +11,7 @@ import io.swagger.models.properties.StringProperty;
 import org.openmrs.Order;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.orderexpansion.api.model.RadiologyOrder;
+import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
 import org.openmrs.module.webservices.docs.swagger.core.property.EnumProperty;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.annotation.PropertyGetter;
@@ -77,6 +81,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 			d.addProperty("specimenType", Representation.REF);
 			d.addProperty("bodySite", Representation.REF);
 			d.addProperty("relatedOrder", Representation.REF);
+			d.addProperty("radiologyOrders", Representation.REF);
 			return d;
 		} else if (rep instanceof FullRepresentation) {
 			OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
@@ -90,6 +95,7 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 			d.addProperty("specimenType", Representation.FULL);
 			d.addProperty("bodySite", Representation.FULL);
 			d.addProperty("relatedOrder", Representation.FULL);
+			d.addProperty("radiologyOrders", Representation.REF);
 			return d;
 		} else if (rep instanceof CustomRepresentation) { // custom rep
 			return null;
@@ -135,6 +141,17 @@ public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler
 			    new RefProperty("#/definitions/OrderfrequencyGet"));
 		}
 		return orderModel;
+	}
+	
+	@PropertyGetter(value = "procedures")
+	public List<RadiologyProcedure> getRadiologyProcedures(RadiologyOrder instance) {
+		try {
+			List<RadiologyProcedure> radiologyProcedures = new ArrayList<>(instance.getRadiologyOrders());
+			return radiologyProcedures;
+		}
+		catch (Exception e) {
+			return new ArrayList<>();
+		}
 	}
 	
 	@Override
