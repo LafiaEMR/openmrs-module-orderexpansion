@@ -21,7 +21,7 @@
     which set audit info like dateCreated, changedBy, etc.-->
 
     <context:annotation-config/>
-    <context:component-scan base-package="org.openmrs.module.orderexpansion" />
+    <context:component-scan base-package="org.openmrs.module.orderexpansion.api" />
 
     <bean id="procedureService"
           class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
@@ -45,6 +45,32 @@
             <list>
                 <value>org.openmrs.module.orderexpansion.api.ProcedureService</value>
                 <ref bean="procedureService"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="radiologyProcedureService"
+          class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+        <property name="target">
+            <bean class="org.openmrs.module.orderexpansion.api.impl.RadiologyProcedureServiceImpl">
+                <property name="radiologyProcedureDao" ref="radiologyProcedureDao"/>
+            </bean>
+        </property>
+        <property name="preInterceptors" ref="serviceInterceptors"/>
+        <property name="transactionAttributeSource" ref="transactionAttributeSource"/>
+    </bean>
+
+    <bean id="radiologyProcedureDao" class="org.openmrs.module.orderexpansion.api.dao.impl.RadiologyProcedureDaoImpl">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+    </bean>
+    <bean parent="serviceContext">
+        <property name="moduleService">
+            <list>
+                <value>org.openmrs.module.orderexpansion.api.RadiologyProcedureService</value>
+                <ref bean="radiologyProcedureService"/>
             </list>
         </property>
     </bean>

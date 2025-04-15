@@ -9,9 +9,9 @@ import org.openmrs.Encounter;
 import org.openmrs.Location;
 import org.openmrs.Patient;
 
-public class Procedure extends BaseFormRecordableOpenmrsData {
+public class RadiologyProcedure extends BaseFormRecordableOpenmrsData {
 	
-	public enum ProcedureStatus {
+	public enum RadiologyProcedureStatus {
 		PREPARATION,
 		IN_PROGRESS,
 		NOT_DONE,
@@ -21,7 +21,7 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 		PENDING_REVIEW
 	}
 	
-	public enum ProcedureOutcome {
+	public enum RadiologyProcedureOutcome {
 		SUCCESSFUL,
 		NOT_SUCCESSFUL,
 		PARTIALLY_SUCCESSFUL
@@ -29,33 +29,33 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer procedureId;
+	private Integer radiologyId;
 	
 	private Patient patient;
 	
-	private ProcedureOrder procedureOrder;
+	private RadiologyOrder radiologyOrder;
 	
 	private Concept concept;
 	
-	private Concept procedureReason;
+	private Concept radiologyProcedureReason;
 	
 	private Concept category;
 	
 	private Concept bodySite;
 	
-	private Procedure partOf;
+	private RadiologyProcedure partOf;
 	
 	private Date startDatetime;
 	
 	private Date endDatetime;
 	
-	private ProcedureStatus status;
+	private RadiologyProcedureStatus status;
 	
 	private Concept statusReason;
 	
-	private ProcedureOutcome outcome;
+	private RadiologyProcedureOutcome outcome;
 	
-	private String procedureReport;
+	private String radiologyReport;
 	
 	public Concept modality;
 	
@@ -63,12 +63,12 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	private Location location;
 	
-	public Integer getProcedureId() {
-		return procedureId;
+	public Integer getRadiologyId() {
+		return radiologyId;
 	}
 	
-	public void setProcedureId(Integer procedureId) {
-		this.procedureId = procedureId;
+	public void setRadiologyId(Integer radiologyId) {
+		this.radiologyId = radiologyId;
 	}
 	
 	public Patient getPatient() {
@@ -79,12 +79,12 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 		this.patient = patient;
 	}
 	
-	public ProcedureOrder getProcedureOrder() {
-		return procedureOrder;
+	public RadiologyOrder getRadiologyOrder() {
+		return radiologyOrder;
 	}
 	
-	public void setProcedureOrder(ProcedureOrder procedureOrder) {
-		this.procedureOrder = procedureOrder;
+	public void setRadiologyOrder(RadiologyOrder radiologyOrder) {
+		this.radiologyOrder = radiologyOrder;
 	}
 	
 	public Concept getConcept() {
@@ -93,6 +93,14 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 	
 	public void setConcept(Concept concept) {
 		this.concept = concept;
+	}
+	
+	public Concept getRadiologyProcedureReason() {
+		return radiologyProcedureReason;
+	}
+	
+	public void setRadiologyProcedureReason(Concept radiologyProcedureReason) {
+		this.radiologyProcedureReason = radiologyProcedureReason;
 	}
 	
 	public Concept getCategory() {
@@ -111,11 +119,11 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 		this.bodySite = bodySite;
 	}
 	
-	public Procedure getPartOf() {
+	public RadiologyProcedure getPartOf() {
 		return partOf;
 	}
 	
-	public void setPartOf(Procedure partOf) {
+	public void setPartOf(RadiologyProcedure partOf) {
 		this.partOf = partOf;
 	}
 	
@@ -135,36 +143,12 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 		this.endDatetime = endDatetime;
 	}
 	
-	public ProcedureStatus getStatus() {
+	public RadiologyProcedureStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(ProcedureStatus status) {
+	public void setStatus(RadiologyProcedureStatus status) {
 		this.status = status;
-	}
-	
-	public ProcedureOutcome getOutcome() {
-		return outcome;
-	}
-	
-	public void setOutcome(ProcedureOutcome outcome) {
-		this.outcome = outcome;
-	}
-	
-	public Location getLocation() {
-		return location;
-	}
-	
-	public void setLocation(Location location) {
-		this.location = location;
-	}
-	
-	public Concept getProcedureReason() {
-		return procedureReason;
-	}
-	
-	public void setProcedureReason(Concept procedureReason) {
-		this.procedureReason = procedureReason;
 	}
 	
 	public Concept getStatusReason() {
@@ -175,12 +159,20 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 		this.statusReason = statusReason;
 	}
 	
-	public String getProcedureReport() {
-		return procedureReport;
+	public RadiologyProcedureOutcome getOutcome() {
+		return outcome;
 	}
 	
-	public void setProcedureReport(String procedureReport) {
-		this.procedureReport = procedureReport;
+	public void setOutcome(RadiologyProcedureOutcome outcome) {
+		this.outcome = outcome;
+	}
+	
+	public String getRadiologyReport() {
+		return radiologyReport;
+	}
+	
+	public void setRadiologyReport(String radiologyReport) {
+		this.radiologyReport = radiologyReport;
 	}
 	
 	public Concept getModality() {
@@ -199,13 +191,21 @@ public class Procedure extends BaseFormRecordableOpenmrsData {
 		this.encounters = encounters;
 	}
 	
-	@Override
-	public Integer getId() {
-		return getProcedureId();
+	public Location getLocation() {
+		return location;
+	}
+	
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 	
 	@Override
-	public void setId(Integer integer) {
-		setProcedureId(integer);
+	public Integer getId() {
+		return getRadiologyId();
+	}
+	
+	@Override
+	public void setId(Integer id) {
+		setRadiologyId(id);
 	}
 }

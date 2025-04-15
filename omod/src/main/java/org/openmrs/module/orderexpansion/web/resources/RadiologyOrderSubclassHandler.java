@@ -1,12 +1,3 @@
-/**
- * This Source Code Form is subject to the terms of the Mozilla Public License,
- * v. 2.0. If a copy of the MPL was not distributed with this file, You can
- * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
- * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
- * <p>
- * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
- * graphic logo is a trademark of OpenMRS Inc.
- */
 package org.openmrs.module.orderexpansion.web.resources;
 
 import java.util.ArrayList;
@@ -19,8 +10,8 @@ import io.swagger.models.properties.RefProperty;
 import io.swagger.models.properties.StringProperty;
 import org.openmrs.Order;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.orderexpansion.api.model.Procedure;
-import org.openmrs.module.orderexpansion.api.model.ProcedureOrder;
+import org.openmrs.module.orderexpansion.api.model.RadiologyOrder;
+import org.openmrs.module.orderexpansion.api.model.RadiologyProcedure;
 import org.openmrs.module.webservices.docs.swagger.core.property.EnumProperty;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.annotation.PropertyGetter;
@@ -35,34 +26,41 @@ import org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingSubcl
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingSubclassHandler;
 import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOperationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@SubClassHandler(supportedClass = ProcedureOrder.class, supportedOpenmrsVersions = { "2.6.* - 9.*" })
-public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler<Order, ProcedureOrder> implements DelegatingSubclassHandler<Order, ProcedureOrder> {
+@SubClassHandler(supportedClass = RadiologyOrder.class, supportedOpenmrsVersions = { "2.6.* - 9.*" })
+public class RadiologyOrderSubclassHandler extends BaseDelegatingSubclassHandler<Order, RadiologyOrder> implements DelegatingSubclassHandler<Order, RadiologyOrder> {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(RadiologyOrderSubclassHandler.class);
 	
 	@Override
 	public String getTypeName() {
-		return "procedureorder";
+		return "radiologyorder";
 	}
 	
 	@Override
 	public PageableResult getAllByType(RequestContext requestContext) throws ResourceDoesNotSupportOperationException {
+		LOGGER.info("Inside getAllByType");
 		throw new ResourceDoesNotSupportOperationException();
 	}
 	
 	@Override
-	public ProcedureOrder newDelegate() {
-		return new ProcedureOrder();
+	public RadiologyOrder newDelegate() {
+		return new RadiologyOrder();
 	}
 	
 	@Override
 	public DelegatingResourceDescription getUpdatableProperties() throws ResourceDoesNotSupportOperationException {
+		LOGGER.info("Inside getUpdatableProperties");
 		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		return orderResource.getUpdatableProperties();
 	}
 	
 	@PropertyGetter("display")
-	public static String getDisplay(ProcedureOrder delegate) {
+	public static String getDisplay(RadiologyOrder delegate) {
+		LOGGER.info("Inside getDisplay");
 		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		return orderResource.getDisplayString(delegate);
@@ -70,6 +68,7 @@ public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler
 	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
+		LOGGER.info("Inside getRepresentationDescription");
 		if (rep instanceof DefaultRepresentation) {
 			OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 			        .getResourceBySupportedClass(Order.class);
@@ -81,8 +80,8 @@ public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler
 			d.addProperty("numberOfRepeats");
 			d.addProperty("specimenType", Representation.REF);
 			d.addProperty("bodySite", Representation.REF);
-			d.addProperty("relatedProcedure", Representation.REF);
-			d.addProperty("procedures", Representation.REF);
+			d.addProperty("relatedOrder", Representation.REF);
+			d.addProperty("radiologyOrders", Representation.REF);
 			return d;
 		} else if (rep instanceof FullRepresentation) {
 			OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
@@ -95,8 +94,8 @@ public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler
 			d.addProperty("numberOfRepeats");
 			d.addProperty("specimenType", Representation.FULL);
 			d.addProperty("bodySite", Representation.FULL);
-			d.addProperty("relatedProcedure", Representation.FULL);
-			d.addProperty("procedures", Representation.FULL);
+			d.addProperty("relatedOrder", Representation.FULL);
+			d.addProperty("radiologyOrders", Representation.REF);
 			return d;
 		} else if (rep instanceof CustomRepresentation) { // custom rep
 			return null;
@@ -104,19 +103,9 @@ public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler
 		return null;
 	}
 	
-	@PropertyGetter(value = "procedures")
-	public List<Procedure> getProcedures(ProcedureOrder instance) {
-		try {
-			List<Procedure> procedures = new ArrayList<>(instance.getProcedures());
-			return procedures;
-		}
-		catch (Exception e) {
-			return new ArrayList<>();
-		}
-	}
-	
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() {
+		LOGGER.info("Inside getCreatableProperties");
 		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		DelegatingResourceDescription d = orderResource.getCreatableProperties();
@@ -127,19 +116,21 @@ public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler
 		d.addProperty("numberOfRepeats");
 		d.addProperty("orderType");
 		d.addProperty("bodySite");
+		d.addProperty("modality");
 		d.addProperty("specimenType");
 		d.addProperty("commentToFulfiller");
 		d.addProperty("scheduledDate");
-		d.addProperty("relatedProcedure");
+		d.addProperty("relatedRadiology");
 		return d;
 	}
 	
 	@Override
 	public Model getGETModel(Representation rep) {
+		LOGGER.info("Inside getGETModel");
 		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		ModelImpl orderModel = (ModelImpl) orderResource.getGETModel(rep);
-		orderModel.property("laterality", new EnumProperty(ProcedureOrder.Laterality.class))
+		orderModel.property("laterality", new EnumProperty(RadiologyOrder.Laterality.class))
 		        .property("clinicalHistory", new StringProperty()).property("numberOfRepeats", new IntegerProperty());
 		
 		if (rep instanceof DefaultRepresentation) {
@@ -152,13 +143,26 @@ public class ProcedureOrderSubclassHandler extends BaseDelegatingSubclassHandler
 		return orderModel;
 	}
 	
+	@PropertyGetter(value = "procedures")
+	public List<RadiologyProcedure> getRadiologyProcedures(RadiologyOrder instance) {
+		try {
+			List<RadiologyProcedure> radiologyProcedures = new ArrayList<>(instance.getRadiologyOrders());
+			return radiologyProcedures;
+		}
+		catch (Exception e) {
+			return new ArrayList<>();
+		}
+	}
+	
 	@Override
 	public Model getCREATEModel(Representation rep) {
+		LOGGER.info("Inside getCREATEModel");
 		OrderResource2_6 orderResource = (OrderResource2_6) Context.getService(RestService.class)
 		        .getResourceBySupportedClass(Order.class);
 		ModelImpl orderModel = (ModelImpl) orderResource.getCREATEModel(rep);
 		return orderModel.property("specimenSource", new StringProperty().example("uuid"))
-		        .property("laterality", new EnumProperty(ProcedureOrder.Laterality.class))
+		        .property("modality", new StringProperty().example("uuid"))
+		        .property("laterality", new EnumProperty(RadiologyOrder.Laterality.class))
 		        .property("clinicalHistory", new StringProperty())
 		        .property("frequency", new StringProperty().example("uuid"))
 		        .property("numberOfRepeats", new IntegerProperty());
